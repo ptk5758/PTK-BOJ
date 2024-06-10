@@ -1,26 +1,18 @@
 #include <iostream>
-void fn(int *cnt, int sum, int target) {
-    if (sum == target) {
-        *cnt = *cnt + 1;
-        return;
-    } else if (sum > target) {
-        return;
-    } else {
-        for (int i=1; i<4; i++) {
-            fn(cnt, sum + i, target);
-        }
+int d[11] = {0, 1, 2, 4, };
+int solve(int n) {
+    for (int i=4; i<=n; i++) {
+        d[i] = d[i-1] + d[i-2] + d[i-3];
     }
+    return d[n];
 }
 int main() {
-    int n;
-    std::cin >> n;
-    while (n--) {
+    int t;
+    std::cin >> t;
+    while (t--) {
         int value;
-        int cnt = 0;
         std::cin >> value;
-        for (int i=1; i<4; i++) {
-            fn(&cnt, i, value);
-        }
-        std::cout << cnt << "\n";
+        std::cout << solve(value) << "\n";
     }
+    return 0;
 }
