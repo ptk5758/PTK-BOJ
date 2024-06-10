@@ -1,19 +1,25 @@
 #include <iostream>
-int min = 100000000;
-void dfs(int count, int now, int target) {
-    if (min < count) return;
-    if (now != target) {
-        if (now % 3 == 0) dfs(count + 1, now / 3, 1);
-        if (now % 2 == 0) dfs(count + 1, now / 2, 1);
-        dfs(count + 1, now - 1, 1);
-    } else {
-        if (min > count) min = count;
-    }
+
+int d[1000001]= {0, };
+int min(int a, int b) {
+    return a > b ? b : a;
 }
 int main() {
-    int value;
-    std::cin >> value;
-    dfs(0, value, 1);
-    std::cout << min;
+    int n;
+    std::cin >> n;
+    d[0] = 0;
+    d[1] = 0;
+    d[2] = 1;
+    d[3] = 1;
+    for (int i=4; i<=n; i++) {
+        d[i] = d[i-1] + 1;
+        if (i % 3 == 0) {
+            d[i] = min(d[i], d[i/3] + 1);
+        }
+        if (i % 2 == 0) {
+            d[i] = min(d[i], d[i/2] + 1);
+        }
+    }
+    std::cout << d[n] << "\n";
     return 0;
 }
