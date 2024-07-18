@@ -1,16 +1,12 @@
 #include <iostream>
-int pow(int n, int p) {
-    if (p == 0) return 1;
-    if (p == 1) return n;
-    return n * pow(n, p - 1) % 1234567891;
-}
+#define mod 1234567891
 long long solve(int n) {
     char line[n + 1]; std::cin >> line;
-    long long result = 0;
+    long long result = 0, r = 1;
     for (int i=0; i<n; i++) {
         int value = (int) line[i] - 96;
-        int p = pow(31, i);
-        result += value * p % 1234567891;
+        result = (result + value * r) % mod;
+        r = (r * 31) % mod;
     }
     return result;
 }
