@@ -1,26 +1,37 @@
 #include <iostream>
+#include <string>
+int main()
+{
+	int n;
+	
+	std::cin >> n;
+	std::string str = std::to_string(n);
 
-int main() {
-	int arr[] = { 0,0,0,0,0,0,0,0,0,0, };
-	char line[8]; std::cin >> line;
-	int index = 0;
-	while (line[index] != '\0') {
-		int value = line[index] - '0';
-		if (value == 6 || value == 9) {
-			if (arr[6] <= arr[9]) {
+	int arr[10] = { 0, };
+	for (int i = 0; i < str.size(); i++) {
+		int value = str[i] - '0';
+		if (value == 6) {
+			if (arr[6] > arr[9]) {
+				arr[9]++;
+			}
+			else {
 				arr[6]++;
-			} else {
+			}
+		} else if (value == 9) {
+			if (arr[9] > arr[6]) {
+				arr[6]++;
+			}
+			else {
 				arr[9]++;
 			}
 		} else {
 			arr[value]++;
-		}		
-		index++;
-	}	
+		}
+		
+	}
 	int max = 0;
-	for (int i = 0; i < 10; i++) {		
-		if (arr[i] > max) max = arr[i];
+	for (int i = 0; i < 10; i++) {
+		if (max < arr[i]) max = arr[i];
 	}
 	std::cout << max << "\n";
-	return 0;
 }
