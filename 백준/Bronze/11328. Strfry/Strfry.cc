@@ -1,43 +1,36 @@
 #include <iostream>
-#include <map>
-#include <vector>
-#define SUCCESS "Possible"
-#define FAILED "Impossible"
-bool Solve() {
-    char *l = new char [1001];
-    char *r = new char [1001];
-    
-    std::map<char, int> wordMap;
-    std::cin >> l >> r;
-    
-    for (int i=0; l[i] != '\0'; i++) {
-        wordMap[l[i]]++;
-    }
-    
-    for (int i=0; r[i] != '\0'; i++) {
-        wordMap[r[i]]--;
-    }
-    
-    for (char i = 'a'; i <= 'z'; i++) {
-        if (wordMap[i] != 0) return false;
-    }
-    
-    delete [] l;
-    delete [] r;
-    
-    return true;
+#include <string>
+bool Solve()
+{	
+	std::string a, b; std::cin >> a >> b;
+	int aArr[26] = { 0, };
+	int bArr[26] = { 0, };
+	for (int i = 0; i < a.size(); i++)
+	{
+		int aIndex = a[i] - 'a';
+		int bIndex = b[i] - 'a';
+		aArr[aIndex]++;
+		bArr[bIndex]++;
+	}
+	for (int i = 0; i < 26; i++)
+	{
+		if (aArr[i] != bArr[i]) return false;
+	}
+	return true;
 }
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(NULL);
-    std::cout.tie(NULL);
-    int t; std::cin >> t;
-    while (t--) {
-        if (Solve()) {
-            std::cout << SUCCESS << "\n";
-        } else {
-            std::cout << FAILED << "\n";
-        }
-    }
-    return 0;
+int main()
+{
+	int n; std::cin >> n;
+	while (n--)
+	{
+		if (Solve()) 
+		{
+			std::cout << "Possible" << "\n";
+		}
+		else 
+		{
+			std::cout << "Impossible" << "\n";
+		}
+	}
+	return 0;
 }
