@@ -1,28 +1,45 @@
 #include <iostream>
 #include <algorithm>
-bool Solution(int* arr, int find, int start, int mid, int end) {
 
-	if (start > end) return false;
-	if (find == arr[mid]) return true;
-	else if (find > arr[mid]) start = mid + 1;
-	else end = mid - 1;	
-	return Solution(arr, find, start, (start+end)/2, end);	
-}
-int main() {	
-	std::ios_base::sync_with_stdio(0); 
-	std::cin.tie(0);
-	int N, C, userStream;
-	std::cin >> N;	
-	int* arr = new int[N];
-	for (int i = 0; i < N; i++) {
-		std::cin >> userStream;
-		arr[i] = userStream;
-	}
-	std::sort(arr, arr+N);
-	std::cin >> C;
-	for (int i = 0; i < C; i++) {
-		std::cin >> userStream;		
-		std::cout << Solution(arr, userStream, 0, (0 + N - 1) / 2, N - 1) << "\n";
-	}
-	return 0;
+int main()
+{
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    std::cout.tie(NULL);
+    int n; std::cin >> n;
+    int* arr = new int[n];
+    for (int i=0; i<n; i++)
+    {
+        int value; std::cin >> value;
+        arr[i] = value;
+    }
+    std::sort(arr, arr+n);
+    int m; std::cin >> m;
+    while (m--)
+    {
+        int value; std::cin >> value;
+        int start = 0;
+        int end = n - 1;
+        bool flag = 0;
+        
+        while (start <= end)
+        {
+            int mid = (start + end) / 2;
+            if (arr[mid] == value)
+            {
+                flag = true;
+                break;
+            }
+            else if (arr[mid] < value)
+            {
+                start = mid + 1;
+            }
+            else if (arr[mid] > value)
+            {
+                end = mid - 1;
+            }
+        }
+        
+        std::cout << flag << "\n";
+    }
 }
