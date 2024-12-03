@@ -1,28 +1,42 @@
 #include <iostream>
-#include <map>
+#include <algorithm>
 
-int main() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
-    std::cout.tie(NULL);
-    std::map<int, int> map;
-    int n;
-    std::cin >> n;
-    while (n--) {
-        int value;
-        std::cin >> value;
-        map[value]++;
-    }
-    int m;
-    std::cin >> m;
-    while (m--) {
-        int value;
-        std::cin >> value;
-        if (map.count(value) > 0) {
-            std::cout << map[value];
-        } else {
-            std::cout << 0;
-        }
-        if (m != 0) std::cout << " ";
-    }
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	int n; std::cin >> n;
+	int* arr = new int[n];
+	for (int i = 0; i < n; i++) std::cin >> arr[i];
+	std::sort(arr, arr + n);
+	int m; std::cin >> m;
+	while (m--)
+	{
+		int value; std::cin >> value;
+		int start = 0;
+		int end = n;
+		bool flag = false;
+		while (start < end)
+		{
+			int mid = start + (end - start) / 2;
+			if (arr[mid] == value)
+			{
+				flag = 1;
+				break;
+			}
+			else if (arr[mid] > value)
+			{
+				end = mid;
+			}
+			else if (arr[mid] < value)
+			{
+				start = mid + 1;
+			}
+		}
+		std::cout << flag << " ";
+	}
+
+	return 0;
 }
