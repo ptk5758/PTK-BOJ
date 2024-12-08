@@ -1,21 +1,33 @@
 #include <iostream>
-int d[301] = {0, };
-int arr[301] = {};
-int max(int a, int b) {
-    return a>b?a:b;
-}
-int main() {
-    int n;
-    std::cin >> n;
-    for (int i=1; i<=n; i++) {
-        std::cin >> arr[i];
+#include <vector>
+#include <algorithm>
+
+typedef std::vector<int> List;
+int main()
+{
+    std::ios::sync_with_stdio(0);
+    std::cin.tie(NULL);
+    std::cout.tie(NULL);
+    int n; std::cin >> n;
+    List list(n + 1, 0);
+    std::vector<List> d(n + 1, List(2, 0));    
+    for (int i=0; i<n; i++) {
+        int value; std::cin >> value;
+        list[i] = value;
     }
-    d[1] = arr[1];
-    d[2] = arr[1] + arr[2];
-    d[3] = arr[3] + max(arr[1], arr[2]);
-    for (int i=4; i<=n; i++) {
-        d[i] = arr[i] + max(arr[i-1] + d[i-3], d[i-2]);
+    if (n == 1) {
+        std::cout << list[0] << "\n";
+        return 0;
     }
-    std::cout << d[n] << "\n";
+    d[1][0] = list[0];
+    d[1][1] = 0;
+    d[2][0] = list[1];
+    d[2][1] = list[0] + list[1];
+    for (int i=3; i<=n; i++)
+    {
+        d[i][0] = std::max(d[i-2][0], d[i-2][1]) + list[i - 1];
+        d[i][1] = d[i-1][0] + list[i - 1];
+    }
+    std::cout << std::max(d[n][0], d[n][1]) << "\n";
     return 0;
 }
