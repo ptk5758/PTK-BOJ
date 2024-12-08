@@ -1,15 +1,17 @@
 #include <iostream>
-long long arr[1001];
-long long solve(long long n) {
-    if (n == 1) return 1;
-    if (n == 2) return 2;
-    if (arr[n]) return arr[n];
-    return arr[n] = (solve(n - 1) + solve(n - 2)) % 10007;
+#include <vector>
+typedef std::vector<int> Vector;
+int main()
+{
+	int n; std::cin >> n;
+	Vector d(n + 1);
+	d[0] = 0;
+	d[1] = 1;
+	d[2] = 2;
+	for (int i = 3; i <= n; i++)
+	{
+		d[i] = (d[i - 2] + d[i - 1]) % 10007;
+	}
+	std::cout << d[n] << "\n";
+	return 0;
 }
-int main() {
-    int n;
-    std::cin >> n;
-    std::cout << solve(n);
-    return 0;
-}
-
