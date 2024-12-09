@@ -1,22 +1,24 @@
 #include <iostream>
-int arr[41] = { 0, };
-int fibonacci(int value)
-{
-	if (value < 0) return 1;
-	if (value == 0) return 0;
-	if (value == 1) return 1;	
-	if (arr[value] != 0) return arr[value];
-	arr[value] = fibonacci(value - 2) + fibonacci(value - 1);
-	return arr[value];
-}
+int d[41][2] = {
+    {1,0},
+    {0,1},
+    {1,1}
+};
 int main()
-{
-	int n;
-	std::cin >> n;
-	while (n--) {
-		int value;
-		std::cin >> value;
-		std::cout << fibonacci(value-1) << " " << fibonacci(value) << "\n";
-	}
-	return 0;
+{   
+
+    int x; std::cin >> x;
+    while (x--)
+    {
+        int n; std::cin >> n;
+        for (int i=2; i<=n; i++)
+        {
+            d[i][0] = d[i-2][0] + d[i-1][0];
+            d[i][1] = d[i-2][1] + d[i-1][1];
+        }
+        std::cout << d[n][0] << " " << d[n][1] << "\n";
+    }
+
+
+    return 0;
 }
