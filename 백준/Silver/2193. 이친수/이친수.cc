@@ -1,13 +1,17 @@
 #include <iostream>
 
-int main() {
+long long d[100] = {0, };
+int main()
+{
     int n; std::cin >> n;
-    long long d[91];
     d[1] = 1;
     d[2] = 1;
-    for (int i=3; i<=n; i++) {
-        d[i] = d[i - 1] + d[i - 2];
+    d[3] = 2;
+    for (int i=4; i<=n; i++)
+    {
+        d[i] = d[i - 2] + d[i - 1];
     }
+
     std::cout << d[n] << "\n";
-    return 0;
+    return 0;    
 }
