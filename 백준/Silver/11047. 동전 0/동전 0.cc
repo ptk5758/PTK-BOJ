@@ -1,27 +1,23 @@
 #include <iostream>
-#include <stack>
-int main() {
-	int n, k;
-	std::cin >> n >> k;
-	std::stack<int> stack;
-	while (n--) {
-		int value;
-		std::cin >> value;
-		stack.push(value);
-	}
 
-	int count = 0;
-	while (!stack.empty()) {
-		int target = stack.top();
-		stack.pop();
-		if (target > k) continue;
-		int cnt = 0;
-		while (cnt * target <= k) {
-			cnt++;
+int main()
+{
+	std::ios::sync_with_stdio(false);
+	std::cin.tie(NULL);
+	std::cout.tie(NULL);
+
+	int n, k; std::cin >> n >> k;
+	int arr[11], result = 0;
+	for (int i = 0; i < n; i++) std::cin >> arr[i];
+	for (int i = n - 1; i >= 0; i--)
+	{
+		if (arr[i] <= k)
+		{
+			result += k / arr[i];
+			k = k % arr[i];
 		}
-		count += --cnt;
-		k -= target * cnt;
 	}
-	std::cout << count << "\n";
+	std::cout << result << "\n";
+
 	return 0;
 }
