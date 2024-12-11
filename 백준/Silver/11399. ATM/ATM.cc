@@ -1,25 +1,31 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 
-int main() {
-    int n;
-    int *nums;
-    std::cin >> n;
-    nums = new int[n];
-    for (int i=0; i<n; i++) {
-        int value;
-        std::cin >> value;
-        nums[i] = value;
+template <typename T>
+using List = std::vector<T>;
+
+void Solve()
+{
+    int n; std::cin >> n;
+    List<int> list(n, 0), sums(n, 0);
+    for (int i=0; i<n; i++) std::cin >> list[i];
+    std::sort(list.begin(), list.end());
+    sums[0] = list[0];
+    int result = sums[0];
+    for (int i=1; i<n; i++) 
+    {
+        sums[i] = sums[i - 1] + list[i];
+        result += sums[i];
     }
-    std::sort(&nums[0], &nums[n]);
-    int sum = 0;
-    for (int i=0; i<n; i++) {
-        for (int j=0; j<=i; j++) {
-            sum += nums[j];
-        }
-    }
-    std::cout << sum;
-    
+    std::cout << result << "\n";
+}
+int main()
+{
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    std::cout.tie(NULL);
+    Solve();
     
     return 0;
 }
